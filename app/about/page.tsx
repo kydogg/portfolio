@@ -1,21 +1,35 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import {
+	SiJavascript,
+	SiTypescript,
+	SiReact,
+	SiNextdotjs,
+	SiNodedotjs,
+	SiPython,
+	SiGit,
+	SiAmazon,
+	SiDocker,
+	SiFigma,
+	SiPostgresql,
+} from "react-icons/si";
+import { Database } from "lucide-react";
 
 export default function AboutPage() {
 	const skills = [
-		"JavaScript",
-		"TypeScript",
-		"React",
-		"Next.js",
-		"Node.js",
-		"Python",
-		"SQL",
-		"Git",
-		"AWS",
-		"Docker",
-		"Figma",
-		"Postgres",
+		{ name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+		{ name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+		{ name: "React", icon: SiReact, color: "#61DAFB" },
+		{ name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+		{ name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+		{ name: "Python", icon: SiPython, color: "#3776AB" },
+		{ name: "SQL", icon: Database, color: "#336791" },
+		{ name: "Git", icon: SiGit, color: "#F05032" },
+		{ name: "AWS", icon: SiAmazon, color: "#FF9900" },
+		{ name: "Docker", icon: SiDocker, color: "#2496ED" },
+		{ name: "Figma", icon: SiFigma, color: "#F24E1E" },
+		{ name: "Postgres", icon: SiPostgresql, color: "#336791" },
 	];
 
 	return (
@@ -39,16 +53,16 @@ export default function AboutPage() {
 						</CardHeader>
 						<CardContent className="space-y-4">
 							<p className="text-muted-foreground">
-								I'm a dedicated software developer with a passion for creating
-								clean, efficient code and building applications that solve
-								real-world problems. My journey in tech started with curiosity
-								and has evolved into a career focused on continuous learning and
-								innovation.
+								I&rsquo;m a dedicated software developer with a passion for
+								creating clean, efficient code and building applications that
+								solve real-world problems. My journey in tech started with
+								curiosity and has evolved into a career focused on continuous
+								learning and innovation.
 							</p>
 							<p className="text-muted-foreground">
-								When I'm not coding, you can find me exploring new technologies,
-								contributing to open-source projects, or sharing knowledge with
-								the developer community.
+								When I&rsquo;m not coding, you can find me exploring new
+								technologies, contributing to open-source projects, or sharing
+								knowledge with the developer community.
 							</p>
 						</CardContent>
 					</Card>
@@ -59,10 +73,18 @@ export default function AboutPage() {
 							<CardTitle>Technical Skills</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<div className="flex flex-wrap gap-2">
+							<div className="flex flex-wrap gap-3">
 								{skills.map((skill) => (
-									<Badge key={skill} variant="secondary">
-										{skill}
+									<Badge
+										key={skill.name}
+										variant="secondary"
+										className="flex items-center gap-2 px-3 py-2"
+									>
+										<skill.icon
+											className="w-4 h-4"
+											style={{ color: skill.color }}
+										/>
+										{skill.name}
 									</Badge>
 								))}
 							</div>
@@ -111,11 +133,11 @@ export default function AboutPage() {
 
 				{/* Call to Action */}
 				<div className="text-center space-y-4 bg-muted/50 rounded-lg p-8">
-					<h2 className="text-2xl font-semibold">Let's Connect</h2>
+					<h2 className="text-2xl font-semibold">Let&rsquo;s Connect</h2>
 					<p className="text-muted-foreground">
-						I'm always interested in new opportunities and collaborations. Feel
-						free to reach out if you'd like to discuss a project or just chat
-						about tech!
+						I&rsquo;m always interested in new opportunities and collaborations.
+						Feel free to reach out if you&rsquo;d like to discuss a project or
+						just chat about tech!
 					</p>
 				</div>
 			</div>
