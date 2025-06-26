@@ -1,12 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, GitBranch } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export interface Project {
   id: number;
@@ -26,6 +27,11 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const [showAllTech, setShowAllTech] = useState(false);
+  const maxVisibleTech = 4;
+  const hasMoreTech = project.technologies.length > maxVisibleTech;
+  const visibleTech = showAllTech ? project.technologies : project.technologies.slice(0, maxVisibleTech);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,9 +40,9 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       whileHover={{ y: -5 }}
       className="h-full"
     >
-      <Card className="flex flex-col h-full overflow-hidden group hover:shadow-lg transition-shadow duration-300">
+      <Card className="flex flex-col h-full overflow-hidden group hover:shadow-lg transition-shadow duration-300 p-0">
         {/* Image Placeholder */}
-        <div className="relative h-48 bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
+        <div className="relative h-48 bg-gradient-to-br from-muted to-muted/50 overflow-hidden rounded-t-lg">
           {project.image ? (
             <Image
               src={project.image}
@@ -60,19 +66,21 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           {/* Status Badge */}
           <div className="absolute top-3 right-3">
             <Badge 
-              variant={
-                project.status === "Completed" ? "default" : 
-                project.status === "In Development" ? "secondary" : 
-                "outline"
-              }
-              className="bg-background/90 backdrop-blur-sm"
+              variant="secondary"
+              className={`backdrop-blur-sm border-0 font-medium ${
+                project.status === "Completed" 
+                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300" 
+                  : project.status === "In Development"
+                  ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300"
+                  : "bg-slate-100 text-slate-600 dark:bg-slate-800/50 dark:text-slate-300"
+              }`}
             >
               {project.status}
             </Badge>
           </div>
         </div>
 
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-3 px-6 pt-6">
           <div className="flex items-start justify-between">
             <CardTitle className="text-xl line-clamp-2">{project.title}</CardTitle>
             <Badge variant="outline" className="ml-2 shrink-0">
@@ -81,23 +89,47 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
         </CardHeader>
 
-        <CardContent className="flex-1 space-y-4">
+        <CardContent className="flex-1 space-y-4 px-6 pb-6">
           <p className="text-muted-foreground text-sm line-clamp-3">
             {project.description}
           </p>
           
           {/* Technologies */}
           <div className="flex flex-wrap gap-1.5">
-            {project.technologies.slice(0, 4).map((tech) => (
-              <Badge key={tech} variant="secondary" className="text-xs">
-                {tech}
-              </Badge>
-            ))}
-            {project.technologies.length > 4 && (
-              <Badge variant="secondary" className="text-xs">
-                +{project.technologies.length - 4}
-              </Badge>
-            )}
+            <AnimatePresence mode="popLayout">
+              {visibleTech.map((tech) => (
+                <motion.div
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Badge variant="secondary" className="text-xs">
+                    {tech}
+                  </Badge>
+                </motion.div>
+              ))}
+              {hasMoreTech && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Badge 
+                    variant="secondary" 
+                    className="text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
+                    onClick={() => setShowAllTech(!showAllTech)}
+                  >
+                    {showAllTech 
+                      ? "Show less" 
+                      : `+${project.technologies.length - maxVisibleTech}`
+                    }
+                  </Badge>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Action Buttons */}
