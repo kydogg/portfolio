@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectGrid } from "@/components/projects/project-grid";
 import { ProjectTabs } from "@/components/projects/project-tabs";
-import { projectsData, getProjectsByCategory } from "@/lib/data/projects";
+import { getProjectsByCategory } from "@/lib/data/projects";
 
 export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState("web");

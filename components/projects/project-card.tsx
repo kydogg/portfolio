@@ -8,18 +8,7 @@ import { ExternalLink, GitBranch } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  technologies: string[];
-  status: "In Development" | "Planning" | "Completed";
-  category: "UI/UX" | "Web" | "iOS";
-  github?: string;
-  demo?: string;
-  image?: string;
-}
+import { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
