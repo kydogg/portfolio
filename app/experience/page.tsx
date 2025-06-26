@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>sugg on deez</div>
+    <div>i used to sell weed</div>
   )
 }
 
