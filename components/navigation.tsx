@@ -15,6 +15,8 @@ import {
 	// NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Logo from "./assets/hellooo.png";
 
 const navigationItems = [
 	{ name: "About", href: "/about" },
@@ -30,10 +32,17 @@ export function Navigation() {
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<nav className="container flex h-14 items-center justify-between">
 				{/* Logo */}
-				<Link href="/" className="flex items-center space-x-2 ml-6">
-					<span className="font-bold text-xl">Portfolio</span>
+				<Link href="/" className="flex items-center ml-6">
+					{/* logo */}
+					<Image
+					src={Logo}
+					alt="Portfolio logo"
+					width={36}          
+					height={36}
+					priority          
+					className="h-fit w-auto"
+					/>
 				</Link>
-
 				{/* Desktop Navigation */}
 				<NavigationMenu className="hidden md:flex">
 					<NavigationMenuList>
