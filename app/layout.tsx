@@ -33,7 +33,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <Navigation />
+        <div suppressHydrationWarning>
+          <Navigation />
+        </div>
         {children}
       </body>
     </html>

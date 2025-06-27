@@ -33,18 +33,34 @@ export function Hero() {
 						className="space-y-2"
 					>
 						<p className="text-lg text-muted-foreground font-mono">
-							👋 Hi, I&rsquo;22m
+							👋 Hi, I&rsquo;m
 						</p>
 					</motion.div>
 
 					{/* Name */}
+					{/* <motion.h1
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, delay: 0.4 }}
+						className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-foreground 
+						to-foreground/70 bg-clip-text text-transparent"
+					>
+						Kyle Baker
+					</motion.h1> */}
+
 					<motion.h1
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.4 }}
-						className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
-					>
-						Kyle Baker
+						className="
+							text-5xl md:text-7xl font-bold tracking-tight
+							bg-gradient-to-r from-foreground to-foreground/70
+							bg-clip-text text-transparent
+							leading-[1.2]  /* I changed the value to 1.2 for more padding */         
+							pb-1                    
+						"
+						>
+						Kyle&nbsp;Baker
 					</motion.h1>
 
 					{/* Title */}
