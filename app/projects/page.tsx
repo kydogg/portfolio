@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectGrid } from "@/components/projects/project-grid";
 import { ProjectTabs } from "@/components/projects/project-tabs";
+import { StartProjectModal } from "@/components/projects/start-project-modal";
 import { getProjectsByCategory } from "@/lib/data/projects";
 import { motion } from "framer-motion";
 
@@ -44,16 +45,16 @@ export default function ProjectsPage() {
             Interested in collaborating on a project? I&rsquo;m always open to discussing new opportunities and ideas.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div
-              whileHover={{ y: -2, scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Button asChild size="lg">
-                <Link href="/contact">
+            <StartProjectModal>
+              <motion.div
+                whileHover={{ y: -2, scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button size="lg">
                   Start a Project
-                </Link>
-              </Button>
-            </motion.div>
+                </Button>
+              </motion.div>
+            </StartProjectModal>
             <motion.div
               whileHover={{ y: -2, scale: 1.02 }}
               transition={{ duration: 0.2 }}
