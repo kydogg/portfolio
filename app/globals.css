@@ -120,3 +120,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*  global.css  ─ apply everywhere  */
+
+/* Firefox (Quantum) */
+html {
+  /* thin | auto  */
+  scrollbar-width: auto;
+  /* thumb   track */
+  scrollbar-color: #000000 transparent;
+}
+
+/* Chromium / Safari / old-Edge */
+::-webkit-scrollbar          { width: 12px; }
+::-webkit-scrollbar-track    { background: transparent; }
+::-webkit-scrollbar-thumb    {
+  background-color: #ffefef;          /* primary-violet */
+  border-radius: 9999px;              /* fully pill-shaped */
+  border: 3px solid transparent;      /* gap between thumb & track */
+  background-clip: content-box;       /* keep the gap transparent */
+}
+::-webkit-scrollbar-thumb:hover { background-color: #ff2d2d; }
