@@ -73,10 +73,18 @@ export default function AboutPage() {
               <CardTitle>Technical Skills</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {skills.map((skill) => (
-                  <Badge key={skill} variant="secondary">
-                    {skill}
+                  <Badge
+                    key={skill.name}
+                    variant="secondary"
+                    className="flex items-center gap-2 px-3 py-2"
+                  >
+                    <skill.icon
+                      className="w-4 h-4"
+                      style={{ color: skill.color }}
+                    />
+                    {skill.name}
                   </Badge>
                 ))}
               </div>

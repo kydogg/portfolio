@@ -19,8 +19,8 @@ export const projectsData: Project[] = [
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "Redis"],
     status: "Completed",
     category: "Web",
-    github: "#",
-    demo: "#",
+    github: "https://github.com/kydogg/ecommerce",
+    demo: "https://ecommerce-demo.vercel.app",
   },
   {
     id: 3,
@@ -29,8 +29,8 @@ export const projectsData: Project[] = [
     technologies: ["Vue.js", "Express.js", "MongoDB", "Socket.io"],
     status: "Planning",
     category: "Web",
-    github: "#",
-    demo: "#",
+    github: "https://github.com/kydogg/task-manager",
+    demo: "https://task-manager-demo.vercel.app",
   },
 
   // UI/UX Projects
@@ -41,7 +41,7 @@ export const projectsData: Project[] = [
     technologies: ["Figma", "Adobe XD", "Principle", "User Research"],
     status: "Completed",
     category: "UI/UX",
-    demo: "#",
+    demo: "https://figma.com/banking-redesign",
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ export const projectsData: Project[] = [
     technologies: ["Figma", "Design Systems", "Prototyping", "User Testing"],
     status: "Completed",
     category: "UI/UX",
-    demo: "#",
+    demo: "https://figma.com/saas-dashboard",
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ export const projectsData: Project[] = [
     technologies: ["Sketch", "InVision", "User Journey Mapping"],
     status: "In Development",
     category: "UI/UX",
-    demo: "#",
+    demo: "https://invision.com/food-app",
   },
 
   // iOS Projects
@@ -70,8 +70,8 @@ export const projectsData: Project[] = [
     technologies: ["Swift", "SwiftUI", "Core Data", "HealthKit", "CloudKit"],
     status: "In Development",
     category: "iOS",
-    github: "#",
-    demo: "#",
+    github: "https://github.com/kydogg/fitness-tracker",
+    demo: "https://testflight.apple.com/fitness-tracker",
   },
   {
     id: 8,
@@ -80,7 +80,8 @@ export const projectsData: Project[] = [
     technologies: ["Swift", "UIKit", "Core Data", "CryptoKit", "Charts"],
     status: "Planning",
     category: "iOS",
-    github: "#",
+    github: "https://github.com/kydogg/finance-manager",
+    demo: "https://testflight.apple.com/finance-manager",
   },
   {
     id: 9,
@@ -89,8 +90,8 @@ export const projectsData: Project[] = [
     technologies: ["Swift", "SwiftUI", "Speech Framework", "AVFoundation"],
     status: "Completed",
     category: "iOS",
-    github: "#",
-    demo: "#",
+    github: "https://github.com/kydogg/language-app",
+    demo: "https://apps.apple.com/language-learning",
   },
 ];
 

@@ -10,25 +10,29 @@ interface ProjectGridProps {
 
 export function ProjectGrid({ children, category }: ProjectGridProps) {
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+    },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
+        duration: 0.3,
       },
     },
     exit: {
       opacity: 0,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: 0.03,
         staggerDirection: -1,
+        duration: 0.2,
       },
     },
   };
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={category}
         variants={containerVariants}
@@ -36,6 +40,7 @@ export function ProjectGrid({ children, category }: ProjectGridProps) {
         animate="visible"
         exit="exit"
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        layout
       >
         {children}
       </motion.div>

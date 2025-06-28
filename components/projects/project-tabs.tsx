@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface ProjectTabsProps {
@@ -53,25 +53,39 @@ export function ProjectTabs({ children, onTabChange }: ProjectTabsProps) {
       </div>
 
       <div className="relative">
-        {tabItems.map((tab) => (
-          <TabsContent
-            key={tab.value}
-            value={tab.value}
-            className="mt-0 focus-visible:outline-none focus-visible:ring-0"
-          >
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-            >
-              {children}
-            </motion.div>
-          </TabsContent>
-        ))}
+        <AnimatePresence mode="wait" initial={false}>
+          {tabItems.map((tab) => (
+            activeTab === tab.value && (
+              <TabsContent
+                key={tab.value}
+                value={tab.value}
+                className="mt-0 focus-visible:outline-none focus-visible:ring-0"
+              >
+                <motion.div
+                  key={`content-${tab.value}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    transition: {
+                      duration: 0.3,
+                      ease: "easeOut"
+                    }
+                  }}
+                  exit={{ 
+                    opacity: 0,
+                    transition: {
+                      duration: 0.15,
+                      ease: "easeIn"
+                    }
+                  }}
+                  layout
+                >
+                  {children}
+                </motion.div>
+              </TabsContent>
+            )
+          ))}
+        </AnimatePresence>
       </div>
     </Tabs>
   );

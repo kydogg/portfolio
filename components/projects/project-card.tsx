@@ -31,7 +31,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       <Card className="flex flex-col h-full overflow-hidden group hover:shadow-lg transition-shadow duration-300 p-0">
         {/* Image Placeholder */}
-        <div className="relative h-48 bg-gradient-to-br from-muted to-muted/50 overflow-hidden rounded-t-lg">
+        <div className="relative h-48 bg-gradient-to-br from-muted to-muted/50 overflow-hidden rounded-t-xl">
           {project.image ? (
             <Image
               src={project.image}
@@ -40,7 +40,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full group-hover:scale-105 transition-transform duration-300">
               <div className="text-center space-y-2">
                 <div className="w-16 h-16 mx-auto bg-primary/10 rounded-lg flex items-center justify-center">
                   <div className="w-8 h-8 bg-primary/20 rounded" />
@@ -69,7 +69,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
         </div>
 
-        <CardHeader className="pb-3 px-6 pt-6">
+        <CardHeader className="p-6 pb-4">
           <div className="flex items-start justify-between">
             <CardTitle className="text-xl line-clamp-2">{project.title}</CardTitle>
             <Badge variant="outline" className="ml-2 shrink-0">
@@ -78,67 +78,96 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
         </CardHeader>
 
-        <CardContent className="flex-1 space-y-4 px-6 pb-6">
-          <p className="text-muted-foreground text-sm line-clamp-3">
-            {project.description}
-          </p>
-          
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-1.5">
-            <AnimatePresence mode="popLayout">
-              {visibleTech.map((tech) => (
-                <motion.div
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Badge variant="secondary" className="text-xs">
-                    {tech}
-                  </Badge>
-                </motion.div>
-              ))}
-              {hasMoreTech && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Badge 
-                    variant="secondary" 
-                    className="text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
-                    onClick={() => setShowAllTech(!showAllTech)}
-                  >
-                    {showAllTech 
-                      ? "Show less" 
-                      : `+${project.technologies.length - maxVisibleTech}`
-                    }
-                  </Badge>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        <CardContent className="flex flex-col flex-1 px-6 pb-6 pt-0">
+          <div className="flex-1 space-y-4">
+            <p className="text-muted-foreground text-sm line-clamp-3">
+              {project.description}
+            </p>
+            
+            {/* Technologies - Fixed height container */}
+            <div className="min-h-[60px] flex items-start">
+              <div className="flex flex-wrap gap-1.5">
+                <AnimatePresence mode="popLayout">
+                  {visibleTech.map((tech) => (
+                    <motion.div
+                      key={tech}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Badge variant="secondary" className="text-xs">
+                        {tech}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                  {hasMoreTech && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
+                        onClick={() => setShowAllTech(!showAllTech)}
+                      >
+                        {showAllTech 
+                          ? "Show less" 
+                          : `+${project.technologies.length - maxVisibleTech}`
+                        }
+                      </Badge>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-2 pt-2">
-            {project.github && (
-              <Button variant="outline" size="sm" asChild className="flex-1">
-                <Link href={project.github} target="_blank" rel="noopener noreferrer">
+          {/* Action Buttons - Always at bottom */}
+          <div className="flex gap-2 mt-4">
+            {/* First Button */}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              asChild={!!(project.category === "UI/UX" ? project.demo : project.github)} 
+              disabled={!(project.category === "UI/UX" ? project.demo : project.github)}
+              className="flex-1"
+            >
+              {(project.category === "UI/UX" ? project.demo : project.github) ? (
+                <Link href={project.category === "UI/UX" ? project.demo : project.github} target="_blank" rel="noopener noreferrer">
                   <GitBranch className="w-4 h-4 mr-2" />
-                  Code
+                  {project.category === "UI/UX" ? "Design Files" : "Code"}
                 </Link>
-              </Button>
-            )}
-            {project.demo && (
-              <Button size="sm" asChild className="flex-1">
-                <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+              ) : (
+                <>
+                  <GitBranch className="w-4 h-4 mr-2" />
+                  {project.category === "UI/UX" ? "Design Files" : "Code"}
+                </>
+              )}
+            </Button>
+            
+            {/* Second Button */}
+            <Button 
+              variant="default"
+              size="sm" 
+              asChild={!!(project.category === "UI/UX" ? false : project.demo)} 
+              disabled={!(project.category === "UI/UX" ? false : project.demo)}
+              className={`flex-1 ${project.category === "UI/UX" ? "disabled:opacity-100 disabled:bg-primary disabled:text-primary-foreground disabled:pointer-events-none" : ""}`}
+            >
+              {(project.category === "UI/UX" ? false : project.demo) ? (
+                <Link href={project.demo!} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Demo
                 </Link>
-              </Button>
-            )}
+              ) : (
+                <>
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  {project.category === "UI/UX" ? "Preview" : "Demo"}
+                </>
+              )}
+            </Button>
           </div>
         </CardContent>
       </Card>
