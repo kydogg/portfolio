@@ -59,18 +59,36 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Failed to send inquiry:', error);
     
+    // More detailed error logging for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    console.error('Detailed error:', errorMessage);
+    
     return NextResponse.json(
       { 
         error: 'Failed to send inquiry. Please try again later.',
-        success: false 
+        success: false,
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },
       { status: 500 }
     );
   }
 }
 
-// Handle unsupported methods
+// Handle unsupported methods and provide debug info in development
 export async function GET() {
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.json({
+      debug: {
+        hasEmailJSServiceId: !!process.env.EMAILJS_SERVICE_ID,
+        hasEmailJSTemplateId: !!process.env.EMAILJS_TEMPLATE_ID,
+        hasEmailJSPublicKey: !!process.env.EMAILJS_PUBLIC_KEY,
+        serviceIdLength: process.env.EMAILJS_SERVICE_ID?.length || 0,
+        templateIdLength: process.env.EMAILJS_TEMPLATE_ID?.length || 0,
+        publicKeyLength: process.env.EMAILJS_PUBLIC_KEY?.length || 0,
+      }
+    });
+  }
+  
   return NextResponse.json(
     { error: 'Method not allowed' },
     { status: 405 }

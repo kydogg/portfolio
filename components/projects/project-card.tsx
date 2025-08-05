@@ -136,7 +136,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               className="flex-1"
             >
               {(project.category === "UI/UX" ? project.demo : project.github) ? (
-                <Link href={project.category === "UI/UX" ? project.demo : project.github} target="_blank" rel="noopener noreferrer">
+                <Link href={(project.category === "UI/UX" ? project.demo : project.github)!} target="_blank" rel="noopener noreferrer">
                   <GitBranch className="w-4 h-4 mr-2" />
                   {project.category === "UI/UX" ? "Design Files" : "Code"}
                 </Link>

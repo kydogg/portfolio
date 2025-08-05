@@ -1,12 +1,8 @@
-import emailjs from '@emailjs/browser';
-
-// EmailJS configuration (server-side)
+// EmailJS configuration (server-side using REST API)
 const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || '';
 const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || '';
 const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || '';
-
-// Initialize EmailJS for server-side use
-emailjs.init(EMAILJS_PUBLIC_KEY);
+const EMAILJS_PRIVATE_KEY = process.env.EMAILJS_PRIVATE_KEY || '';
 
 export interface ProjectInquiryData {
   name: string;
@@ -21,6 +17,19 @@ export interface ProjectInquiryData {
 
 export const sendProjectInquiry = async (data: ProjectInquiryData): Promise<void> => {
   try {
+    // Validate required environment variables
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error('Missing EmailJS environment variables:', {
+        hasServiceId: !!EMAILJS_SERVICE_ID,
+        hasTemplateId: !!EMAILJS_TEMPLATE_ID,
+        hasPublicKey: !!EMAILJS_PUBLIC_KEY,
+        hasPrivateKey: !!EMAILJS_PRIVATE_KEY
+      });
+      throw new Error('EmailJS configuration missing. Please check environment variables.');
+    }
+
+    console.log('EmailJS configuration loaded successfully');
+
     // Format the services array into a readable string
     const servicesFormatted = data.services.join(', ');
     
@@ -42,18 +51,46 @@ export const sendProjectInquiry = async (data: ProjectInquiryData): Promise<void
       reply_to: data.email,
     };
 
-    // Send email via EmailJS
-    const response = await emailjs.send(
-      EMAILJS_SERVICE_ID,
-      EMAILJS_TEMPLATE_ID,
-      templateParams
-    );
+    // Prepare the payload according to EmailJS REST API documentation
+    const payload: any = {
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: EMAILJS_TEMPLATE_ID,
+      user_id: EMAILJS_PUBLIC_KEY,
+      template_params: templateParams,
+    };
 
-    if (response.status !== 200) {
-      throw new Error(`EmailJS responded with status: ${response.status}`);
+    // Add accessToken (private key) if available for enhanced security
+    if (EMAILJS_PRIVATE_KEY) {
+      payload.accessToken = EMAILJS_PRIVATE_KEY;
     }
 
-    console.log('Email sent successfully:', response);
+    console.log('Sending email via EmailJS REST API with payload:', {
+      service_id: payload.service_id,
+      template_id: payload.template_id,
+      user_id: payload.user_id,
+      hasAccessToken: !!payload.accessToken,
+      templateParamsCount: Object.keys(templateParams).length
+    });
+
+    // Send email via EmailJS REST API (exact format from docs)
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    console.log('EmailJS API response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('EmailJS API error response:', errorText);
+      throw new Error(`EmailJS API responded with status: ${response.status}. ${errorText}`);
+    }
+
+    const responseData = await response.text();
+    console.log('Email sent successfully via EmailJS REST API:', responseData);
   } catch (error) {
     console.error('Failed to send email:', error);
     throw new Error('Failed to send inquiry. Please try again or contact directly.');

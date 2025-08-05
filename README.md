@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kyle Baker - Portfolio Website
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js 15, showcasing web development projects, skills, and professional experience. Features a clean design system with dark/light theme switching and smooth animations.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **🎨 Dual Themes**: Seamless light/dark mode switching with theme-specific backgrounds
+- **📱 Fully Responsive**: Optimized for all devices with mobile-first design
+- **⚡ Fast Performance**: Built with Next.js 15 and Turbopack for lightning-fast builds
+- **🎭 Smooth Animations**: Framer Motion powered animations and transitions
+- **📧 Contact Integration**: EmailJS powered contact form for project inquiries
+- **🛠️ Modern Stack**: TypeScript, Tailwind CSS, shadcn/ui components
+- **♿ Accessible**: Built with accessibility-first component library (Radix UI)
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript 5 (strict mode)
+- **Styling**: Tailwind CSS 4 with custom design system
+- **Components**: shadcn/ui + Radix UI primitives
+- **Animations**: Framer Motion
+- **Fonts**: Geist Sans, JetBrains Mono
+- **Icons**: Lucide React
+- **Email**: EmailJS integration
+- **Deployment**: Optimized for Vercel
+
+## 🏗️ Project Structure
+
+```
+├── app/                    # Next.js App Router pages
+├── components/             # Reusable React components
+│   ├── ui/                # shadcn/ui component library
+│   ├── home/              # Homepage specific components
+│   ├── projects/          # Project showcase components
+│   └── shared/            # Shared utility components
+├── lib/                   # Utilities and data
+├── types/                 # TypeScript type definitions
+└── public/                # Static assets and images
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js 18+ 
+- npm/yarn/pnpm
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
 
-## Learn More
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/portfolio-app.git
+   cd portfolio-app
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables** (optional - for contact form)
+   ```bash
+   cp .env.example .env.local
+   # Add your EmailJS credentials
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. **Open in browser**
+   Visit [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Available Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Development server with Turbopack
+npm run dev
+
+# Type checking
+npm run type-check
+
+# Production build
+npm run build
+
+# Start production server
+npm run start
+
+# Lint code
+npm run lint
+
+# Add shadcn/ui components
+npx shadcn@latest add [component-name]
+```
+
+## 🎨 Design System
+
+The portfolio uses a comprehensive design system with:
+
+- **Colors**: OKLCH color space for better color accuracy
+- **Typography**: Professional font pairing (Geist + JetBrains Mono)
+- **Components**: Consistent, accessible UI components
+- **Themes**: Automatic light/dark mode with custom backgrounds
+- **Animations**: Subtle, performance-optimized animations
+
+## 📧 Contact Form Setup
+
+The contact form uses EmailJS for email notifications. See `CLAUDE.md` for detailed setup instructions including:
+
+- EmailJS account setup
+- Email template configuration
+- Environment variables
+- Deployment configuration
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. **Push to GitHub**
+2. **Connect to Vercel**
+3. **Add environment variables** (if using contact form)
+4. **Deploy**
+
+The app is optimized for Vercel deployment with automatic builds and preview deployments.
+
+### Other Platforms
+
+The app can be deployed to any platform supporting Node.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contact
+
+**Kyle Baker**
+- Portfolio: [Your Live Site URL]
+- Email: [Your Email]
+- LinkedIn: [Your LinkedIn]
+- GitHub: [Your GitHub]
+
+---
+
+*Built with ❤️ using Next.js and modern web technologies*

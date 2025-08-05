@@ -104,10 +104,174 @@ This is a Next.js 15 portfolio application using the App Router pattern with the
 
 Professional portfolio website with complete navigation and core pages:
 
-- **Hero section** with animated typewriter, social links, and geometric background
+- **Hero section** with theme-based backgrounds (white marble/orange gradient), animated typewriter, social links
 - **About page** with skills badges, experience highlights, and personal story
-- **Projects page** with project cards and technology badges
-- **Contact page** with contact form and information
+- **Projects page** with project cards, technology badges, and category filtering
+- **Contact page** with EmailJS-powered contact form
 - **Responsive navigation** with desktop and mobile layouts
 - **Complete design system** using shadcn/ui components
+- **Dark/Light theme switching** with seamless transitions across entire app
 - **Developer-focused aesthetic** with JetBrains Mono font
+
+## Optimized File Structure
+
+```
+portfolio-app/
+├── README.md
+├── CLAUDE.md                     # This file - project documentation
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+├── eslint.config.mjs
+├── postcss.config.mjs
+├── components.json               # shadcn/ui configuration
+├── .env.local                    # Environment variables (not in repo)
+│
+├── app/                          # Next.js App Router
+│   ├── layout.tsx               # Root layout with fonts & theme provider
+│   ├── page.tsx                 # Homepage (Hero component)
+│   ├── globals.css              # Global styles & theme variables
+│   ├── favicon.ico
+│   ├── about/
+│   │   └── page.tsx            # About page
+│   ├── projects/
+│   │   └── page.tsx            # Projects showcase
+│   ├── contact/
+│   │   └── page.tsx            # Contact form page
+│   ├── experience/
+│   │   └── page.tsx            # Experience page
+│   └── api/
+│       └── send-inquiry/
+│           └── route.ts         # EmailJS API endpoint
+│
+├── components/                   # Reusable React components
+│   ├── navigation.tsx           # Main navigation with theme toggle
+│   ├── theme-provider.tsx       # Next-themes provider wrapper
+│   ├── mode-toggle.tsx          # Light/Dark theme toggle dropdown
+│   ├── home/
+│   │   └── hero.tsx            # Hero section with theme-based backgrounds
+│   ├── shared/
+│   │   ├── typewriter.tsx      # Typewriter animation component
+│   │   └── social-links.tsx    # Social media links
+│   ├── projects/
+│   │   ├── project-card.tsx    # Individual project display cards
+│   │   ├── project-grid.tsx    # Grid layout wrapper
+│   │   ├── project-tabs.tsx    # Category filtering tabs
+│   │   ├── start-project-modal.tsx      # Contact/inquiry modal
+│   │   └── project-inquiry-form.tsx     # Contact form within modal
+│   ├── assets/
+│   │   └── hellooo.png         # Logo/avatar image
+│   └── ui/                      # shadcn/ui components
+│       ├── accordion.tsx
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── checkbox.tsx
+│       ├── dialog.tsx
+│       ├── dropdown-menu.tsx
+│       ├── form.tsx
+│       ├── hover-card.tsx
+│       ├── input.tsx
+│       ├── label.tsx
+│       ├── menubar.tsx
+│       ├── navigation-menu.tsx
+│       ├── select.tsx
+│       ├── separator.tsx
+│       ├── sheet.tsx
+│       ├── tabs.tsx
+│       └── textarea.tsx
+│
+├── lib/                          # Utility functions and data
+│   ├── utils.ts                 # Utility functions (cn, etc.)
+│   ├── emailjs.ts              # EmailJS integration
+│   ├── constants.ts            # App constants
+│   └── data/
+│       └── projects.ts         # Project data (filler content)
+│
+├── types/                        # TypeScript type definitions
+│   ├── index.ts                # General types
+│   └── project.ts              # Project-specific types
+│
+└── public/                       # Static assets
+    ├── images/
+    │   ├── hero-light.jpg      # White marble texture (light theme)
+    │   ├── hero-dark.jpg       # Orange texture (dark theme)
+    │   └── hero-pattern.svg    # Geometric background pattern
+    └── [other static files]
+```
+
+## EmailJS Setup Guide
+
+The contact form uses EmailJS for email notifications. Follow these steps to configure:
+
+### 1. Create EmailJS Account
+1. Go to [EmailJS.com](https://www.emailjs.com/) and sign up
+2. Verify your email address
+
+### 2. Set Up Email Service
+1. In EmailJS dashboard → **Email Services** → **Add New Service**
+2. Choose your email provider (Gmail recommended)
+3. Connect your email and **save the Service ID**
+
+### 3. Create Email Template
+1. Go to **Email Templates** → **Create New Template**
+2. Use this template:
+
+**Subject Line:**
+```
+New Project Inquiry from {{from_name}}
+```
+
+**Email Body:**
+```
+New Project Inquiry
+
+From: {{from_name}}
+Email: {{from_email}}
+Company: {{company}}
+
+Project Details:
+- Type: {{project_type}}
+- Budget: {{budget_range}}
+- Timeline: {{timeline}}
+- Services Needed: {{services_needed}}
+
+Project Description:
+{{project_description}}
+
+---
+Reply directly to this email to respond to {{from_name}}.
+```
+
+3. **Save the Template ID**
+
+### 4. Get Your Public Key
+1. Go to **Account** → **General**
+2. Copy your **Public Key**
+
+### 5. Add Environment Variables
+Create `.env.local` in project root:
+```bash
+EMAILJS_SERVICE_ID=your_service_id_here
+EMAILJS_TEMPLATE_ID=your_template_id_here
+EMAILJS_PUBLIC_KEY=your_public_key_here
+```
+
+### 6. Deploy Configuration
+For Vercel deployment:
+1. Go to Vercel dashboard → your project → **Settings** → **Environment Variables**
+2. Add all three variables (without `NEXT_PUBLIC_` prefix)
+3. Redeploy your site
+
+### Template Variables Reference
+- `{{from_name}}` - Contact's name
+- `{{from_email}}` - Contact's email  
+- `{{company}}` - Company name
+- `{{project_type}}` - Project type
+- `{{budget_range}}` - Budget range
+- `{{timeline}}` - Project timeline
+- `{{services_needed}}` - Required services
+- `{{project_description}}` - Full description
+
+**Free Tier:** 200 emails/month (sufficient for portfolio contact form)

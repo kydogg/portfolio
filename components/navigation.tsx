@@ -17,6 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Logo from "./assets/hellooo.png";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const navigationItems = [
 	{ name: "About", href: "/about" },
@@ -44,60 +45,65 @@ export function Navigation() {
 					/>
 				</Link>
 				{/* Desktop Navigation */}
-				<NavigationMenu className="hidden md:flex">
-					<NavigationMenuList>
-						{navigationItems.map((item) => (
-							<NavigationMenuItem key={item.name}>
-								<NavigationMenuLink
-									href={item.href}
-									className={cn(
-										"group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-									)}
-								>
-									{item.name}
-								</NavigationMenuLink>
-							</NavigationMenuItem>
-						))}
-					</NavigationMenuList>
-				</NavigationMenu>
-
-				{/* Mobile Navigation */}
-				<Sheet open={isOpen} onOpenChange={setIsOpen}>
-					<SheetTrigger asChild>
-						<Button
-							variant="ghost"
-							className="md:hidden"
-							size="sm"
-							aria-label="Toggle navigation menu"
-						>
-							<Menu className="h-5 w-5" />
-							<span className="sr-only">Toggle navigation menu</span>
-						</Button>
-					</SheetTrigger>
-					<SheetContent side="right" className="w-[300px] sm:w-[400px]">
-						<div className="flex flex-col space-y-4 mt-4">
-							<Link
-								href="/"
-								className="flex items-center space-x-2 text-lg font-semibold"
-								onClick={() => setIsOpen(false)}
-							>
-								Portfolio
-							</Link>
-							<div className="flex flex-col space-y-3">
-								{navigationItems.map((item) => (
-									<Link
-										key={item.name}
+				<div className="flex items-center space-x-4">
+					<NavigationMenu className="hidden md:flex">
+						<NavigationMenuList>
+							{navigationItems.map((item) => (
+								<NavigationMenuItem key={item.name}>
+									<NavigationMenuLink
 										href={item.href}
-										className="text-sm font-medium transition-colors hover:text-primary"
-										onClick={() => setIsOpen(false)}
+										className={cn(
+											"group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-muted hover:text-foreground hover:scale-105 focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+										)}
 									>
 										{item.name}
-									</Link>
-								))}
+									</NavigationMenuLink>
+								</NavigationMenuItem>
+							))}
+						</NavigationMenuList>
+					</NavigationMenu>
+					<ModeToggle />
+				</div>
+
+				{/* Mobile Navigation */}
+				<div className="flex items-center space-x-2 md:hidden">
+					<ModeToggle />
+					<Sheet open={isOpen} onOpenChange={setIsOpen}>
+						<SheetTrigger asChild>
+							<Button
+								variant="ghost"
+								size="sm"
+								aria-label="Toggle navigation menu"
+							>
+								<Menu className="h-5 w-5" />
+								<span className="sr-only">Toggle navigation menu</span>
+							</Button>
+						</SheetTrigger>
+						<SheetContent side="right" className="w-[300px] sm:w-[400px]">
+							<div className="flex flex-col space-y-4 mt-4">
+								<Link
+									href="/"
+									className="flex items-center space-x-2 text-lg font-semibold transition-all duration-200 hover:text-foreground hover:bg-muted px-3 py-2 rounded-md hover:scale-105"
+									onClick={() => setIsOpen(false)}
+								>
+									Portfolio
+								</Link>
+								<div className="flex flex-col space-y-3">
+									{navigationItems.map((item) => (
+										<Link
+											key={item.name}
+											href={item.href}
+											className="text-sm font-medium transition-all duration-200 hover:text-foreground hover:bg-muted px-3 py-2 rounded-md hover:scale-105"
+											onClick={() => setIsOpen(false)}
+										>
+											{item.name}
+										</Link>
+									))}
+								</div>
 							</div>
-						</div>
-					</SheetContent>
-				</Sheet>
+						</SheetContent>
+					</Sheet>
+				</div>
 			</nav>
 		</header>
 	);
