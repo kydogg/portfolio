@@ -15,6 +15,14 @@ export interface ProjectInquiryData {
   description: string;
 }
 
+interface EmailJSPayload {
+  service_id: string;
+  template_id: string;
+  user_id: string;
+  template_params: Record<string, string>;
+  accessToken?: string;
+}
+
 export const sendProjectInquiry = async (data: ProjectInquiryData): Promise<void> => {
   try {
     // Validate required environment variables
@@ -52,7 +60,7 @@ export const sendProjectInquiry = async (data: ProjectInquiryData): Promise<void
     };
 
     // Prepare the payload according to EmailJS REST API documentation
-    const payload: any = {
+    const payload: EmailJSPayload = {
       service_id: EMAILJS_SERVICE_ID,
       template_id: EMAILJS_TEMPLATE_ID,
       user_id: EMAILJS_PUBLIC_KEY,
