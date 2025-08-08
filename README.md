@@ -1,4 +1,4 @@
-# Kyle Baker - Portfolio Website
+Portfolio Website
 
 A modern, responsive portfolio website built with Next.js 15, showcasing web development projects, skills, and professional experience. Features a clean design system with dark/light theme switching and smooth animations.
 
