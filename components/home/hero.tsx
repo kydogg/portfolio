@@ -28,7 +28,11 @@ export function Hero() {
 	const currentTheme = mounted ? resolvedTheme : 'light';
 
 	return (
-		<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+		<section 
+			className="relative min-h-screen flex items-center justify-center overflow-hidden"
+			role="banner"
+			aria-label="Kyle Baker - Full Stack Developer introduction"
+		>
 			{/* Simplified Background */}
 			<div className="absolute inset-0">
 				{/* Light Theme - White Marble */}
@@ -41,10 +45,11 @@ export function Hero() {
 					>
 						<Image
 							src="/images/hero-light.jpg"
-							alt=""
+							alt="White marble texture background"
 							fill
 							className="object-cover object-center"
 							priority
+							sizes="100vw"
 						/>
 						{/* Strong overlay for text readability */}
 						<motion.div 
@@ -66,10 +71,11 @@ export function Hero() {
 					>
 						<Image
 							src="/images/hero-dark.jpg"
-							alt=""
+							alt="Dark moody rocks and water texture background"
 							fill
 							className="object-cover object-center"
 							priority
+							sizes="100vw"
 						/>
 						{/* Subtle overlay for text readability */}
 						<motion.div 
@@ -164,7 +170,7 @@ export function Hero() {
 							}`}
 							asChild
 						>
-							<Link href="/projects">View My Work</Link>
+							<Link href="/projects" aria-label="View Kyle Baker's portfolio projects">View My Work</Link>
 						</Button>
 
 						<Button
@@ -177,7 +183,7 @@ export function Hero() {
 							}`}
 							asChild
 						>
-							<Link href="/contact">Get In Touch</Link>
+							<Link href="/contact" aria-label="Contact Kyle Baker for collaboration">Get In Touch</Link>
 						</Button>
 					</motion.div>
 
