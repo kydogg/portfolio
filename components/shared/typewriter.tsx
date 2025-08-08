@@ -66,9 +66,14 @@ export function Typewriter({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 0.5 }}
+      aria-live="polite"
+      aria-label="Rotating developer specialties"
     >
       {currentText}
-      <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
+      <span 
+        className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}
+        aria-hidden="true"
+      >
         |
       </span>
     </motion.span>
